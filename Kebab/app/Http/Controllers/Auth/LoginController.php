@@ -25,47 +25,37 @@ class LoginController extends Controller
         ]);
 
         $username = $request->input('username');
-        $maxAttempts = 5;
+        $maxAttempts = 1000;
         $decayMinutes = 30;
 
-        // 1. Verificar bloqueo por intentos fallidos
+        // Verificar bloqueo por intentos fallidos
         if (RateLimiter::tooManyAttempts($this->throttleKey($username), $maxAttempts)) {
             $seconds = RateLimiter::availableIn($this->throttleKey($username));
             throw ValidationException::withMessages([
                 'username' => ["La cuenta está temporalmente bloqueada. Inténtelo de nuevo en $seconds segundos."],
             ]);
         }
-
-        // 2. Intentar login
         if (Auth::attempt(['username' => $username, 'password' => $request->password])) {
             RateLimiter::clear($this->throttleKey($username));
             $request->session()->regenerate();
-
-            $user = Auth::user();
-
-            // Redirección según tipo de usuario
-            switch ($user->user_type) {
-                case 'admin':
-                    return redirect('/admin');
-                case 'manager':
-                    // Si es manager inactivo, cerrar sesión y mostrar error
-                    if (isset($user->manager) && !$user->manager->employee) {
-                        Auth::logout();
-                        return back()->withErrors(['username' => 'Esta cuenta de manager está inactiva.']);
-                    }
-                    return redirect('/manager_index');
-                case 'customer':
-                    return redirect('/dashboard');
-                default:
-                    return redirect('/');
-            }
-        } else {
-            // 3. Registrar intento fallido
-            RateLimiter::hit($this->throttleKey($username), $decayMinutes * 60);
-            throw ValidationException::withMessages([
-                'password' => ['Contraseña inválida.'],
-            ]);
+        
+            // No vuelvas a usar Auth::user() inmediatamente, ya tienes el user
+            $user = \App\Models\User::where('username', $username)->first();
+        
+            return match ($user->user_type) {
+                'admin' => redirect('/admin'),
+                'manager' => redirect('/manager_index'),
+                'customer' => redirect('/dashboard'),
+                default => redirect('/'),
+            };
         }
+        
+
+        // Registrar intento fallido
+        RateLimiter::hit($this->throttleKey($username), $decayMinutes * 60);
+        throw ValidationException::withMessages([
+            'password' => ['Contraseña inválida.'],
+        ]);
     }
 
     // Genera una clave única para rate limiting por usuario e IP

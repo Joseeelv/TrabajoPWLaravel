@@ -21,14 +21,14 @@ class User extends Authenticatable
         'user_id',
         'username',
         'email',
-        'user_secret',
+        'password',
         'user_type',
         'img_src',
         // otros campos
     ];
 
     protected $hidden = [
-        'user_secret',
+        'password',
         'remember_token',
     ];
 
@@ -43,7 +43,12 @@ class User extends Authenticatable
 
     public function getAuthPassword()
     {
-        return $this->user_secret;
+        return $this->password;
+    }
+
+    public function getUserType()
+    {
+        return $this->user_type;
     }
 
     public function user()

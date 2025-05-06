@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/contacto.css') }}">
 </head>
 <body>
-@include('partials.navbar')
 
     <main>
         <h1>Contacto</h1>
@@ -45,6 +44,5 @@
             referrerpolicy="no-referrer-when-downgrade"></iframe>
     </main>
 
-    @include('partials.footer')
 </body>
 </html>
