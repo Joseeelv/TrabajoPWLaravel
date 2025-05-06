@@ -44,7 +44,7 @@ class LoginController extends Controller
         
             return match ($user->user_type) {
                 'admin' => redirect('/admin'),
-                'manager' => redirect('/manager_index'),
+                'manager' => redirect('/manager'),
                 'customer' => redirect('/dashboard'),
                 default => redirect('/'),
             };

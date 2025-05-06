@@ -1,6 +1,4 @@
-{{-- resources/views/manager/index.blade.php --}}
-
-@extends('layouts.app') {{-- Usa el layout base generado por Breeze --}}
+@extends('layouts.app')
 
 @section('content')
 @php
@@ -31,3 +29,8 @@
     </div>
 </main>
 @endsection
+
+
+@push('styles')
+<link rel="stylesheet" href="{{ asset('assets/css/manager.css') }}">
+@endpush
