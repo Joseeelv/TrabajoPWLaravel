@@ -4,6 +4,8 @@ use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\CarritoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Manager\ReplenishmentController;
@@ -16,6 +18,11 @@ Route::get('/', function () {
 // Rutas de menú y contacto
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 Route::view('/contact', 'contact')->name('contact');
+
+// Ruta de producto seleccionado en carta y archivo de inclusión a carrito
+Route::get('/producto', [ProductoController::class, 'mostrar']);
+Route::post('/producto', [ProductoController::class, 'mostrar'])->name('producto');
+Route::post('/add-to-cart', [CarritoController::class, 'agregar']);
 
 // Rutas de registro y login
 Route::get('/register', [RegisterController::class, 'create'])->name('register');

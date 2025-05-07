@@ -117,3 +117,25 @@ main {
     width: 50px;
     margin: 10px;
 }
+
+/* Imágenes de alérgenos */
+.allergens-container {
+    margin-top: 20px;
+}
+
+.allergens-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.allergen-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain; 
+    padding: 5px;
+    background-color: white;
+}
