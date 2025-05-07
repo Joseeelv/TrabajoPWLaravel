@@ -13,6 +13,7 @@ use App\Http\Controllers\Manager\TransactionController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CarritoCheckController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\OfertaController;
 // Página de inicio
 Route::get('/', function () {
     return view('index');
