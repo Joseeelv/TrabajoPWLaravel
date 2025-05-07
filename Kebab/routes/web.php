@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Manager\ReplenishmentController;
 use App\Http\Controllers\Manager\TransactionController;
+use App\Http\Controllers\OfertaController;
+use App\Http\Controllers\ReviewController;
 // Página de inicio
 Route::get('/', function () {
     return view('index');
@@ -19,10 +21,7 @@ Route::get('/', function () {
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 Route::view('/contact', 'contact')->name('contact');
 
-// Ruta de producto seleccionado en carta y archivo de inclusión a carrito
-Route::get('/producto', [ProductoController::class, 'mostrar']);
-Route::post('/producto', [ProductoController::class, 'mostrar'])->name('producto');
-Route::post('/add-to-cart', [CarritoController::class, 'agregar']);
+
 
 // Rutas de registro y login
 Route::get('/register', [RegisterController::class, 'create'])->name('register');
@@ -31,11 +30,22 @@ Route::get('/login', [LoginController::class, 'show'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Ruta del dashboard para el usuario cliente
-Route::middleware(['auth'])->get('/dashboard', function () {
-    $user = Auth::user();
-    return view('dashboard', ['points' => $user->points, 'user' => $user]);
-})->name('dashboard');
+// Rutas para el usuario cliente
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        $user = Auth::user();
+        return view('dashboard', ['points' => $user->points, 'user' => $user]);
+    })->name('dashboard');
+
+    Route::get('/ofertas', [OfertaController::class, 'index'])->name('ofertas');
+    Route::post('/ofertas/activar', [OfertaController::class, 'activar'])->name('ofertas.activar');
+    // Ruta de producto seleccionado en carta y archivo de inclusión a carrito
+    Route::get('/producto', [ProductoController::class, 'mostrar']);
+    Route::post('/producto', [ProductoController::class, 'mostrar'])->name('producto');
+    Route::post('/add-to-cart', [CarritoController::class, 'agregar']);
+    Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews');
+    Route::post('/reviews', [ReviewController::class, 'store'])->middleware('auth')->name('reviews.store');
+});
 
 // Ruta de perfil
 Route::middleware(['auth'])->get('/perfil', function () {

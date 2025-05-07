@@ -34,6 +34,7 @@
                         'Carrito' => url('/carrito'),
                         'Pedidos Recientes' => url('/pedidos'),
                         'Perfil' => url('/perfil'),
+                        'Reseñas' => url('/reviews'),
                         'Cerrar Sesión' => route('logout'),
                     ],
                     default => [],
@@ -56,7 +57,9 @@
             @if ($userType === 'customer')
                 <div id="kebabito-container">
                     <img id="kebabito-image" src="{{ asset('assets/images/logo/DKS.png') }}" alt="Kebabito image">
-                    <span>{{ $user->puntos ?? 0 }}</span>
+                    @if(session()->has('points'))
+                    <span>{{ session('points') }}</span>
+                    @endif
                 </div>
 
                 @php
