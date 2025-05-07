@@ -65,7 +65,7 @@ class ConfirmarCarritoController extends Controller
                 }
 
                 $orderItem = OrderItem::create([
-                    'order_id' => $order->order_id,
+                    'order_id' => $order->id,
                     'product_id' => $p['id'],
                     'quantity' => $p['cantidad'],
                     'price' => $precio
