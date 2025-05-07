@@ -3,72 +3,52 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Offers;
+use App\Models\Customer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class OfertaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $ofertas = DB::table('offers')
-            ->join('products', 'offers.prod_id', '=', 'products.product_id')
-            ->select(
-                'offers.offer_text as of_name',
-                'offers.offer_id as id',
-                'offers.cost as coronas',
-                'offers.discount as discount',
-                'products.product_name as nombre',
-                'products.img_src as img'
-            )
-            ->get();
+        $offers = Offers::with('product')->get();
+        $user = Auth::user();
 
-        $activas = [];
-
-        if (Auth::check()) {
-            $userId = Auth::id();
-            $activas = DB::table('customers_offers')
-                ->where('user_id', $userId)
-                ->pluck('offer_id')
-                ->toArray();
-        }
-
-        return view('Ofertas', compact('ofertas', 'activas'));
+        return view('ofertas', compact('offers', 'user'));
     }
 
-    public function activar(Request $request)
+    public function activate(Request $request)
     {
+        $offerId = $request->input('Oferta');
         $user = Auth::user();
-        $ofertaId = $request->input('Oferta');
-        $mensaje = "";
+        $customer = Customer::where('user_id', $user->user_id)->first();
 
-        $oferta = DB::table('offers')->where('offer_id', $ofertaId)->first();
 
-        $yaAceptada = DB::table('customers_offers')
-            ->where('user_id', $user->id)
-            ->where('offer_id', $ofertaId)
-            ->exists();
+        $offer = Offers::findOrFail($offerId);
+        $alreadyActivated = DB::table('CUSTOMERS_OFFERS')
+                              ->where('user_id', $user->user_id)
+                              ->where('offer_id', $offerId)
+                              ->exists();
 
-        if ($yaAceptada) {
-            return back()->with('mensaje', 'La oferta ya está activa.');
+        if ($alreadyActivated) {
+            return redirect()->back()->with('message', 'La oferta ya está activada.');
         }
 
-        if ($user->points >= $oferta->cost) {
-            DB::table('customers_offers')->insert([
-                'user_id' => $user->id,
-                'offer_id' => $ofertaId,
+        if ($customer->points >= $offer->cost) {
+            DB::table('CUSTOMERS_OFFERS')->insert([
+                'user_id' => $user->user_id,
+                'offer_id' => $offer->offer_id,
                 'activation_date' => now()
             ]);
 
-            // Actualizar puntos
-            DB::table('customers')->where('user_id', $user->id)
-                ->update(['points' => $user->points - $oferta->cost]);
+            $customer->points -= $offer->cost;
+            $user->save();
+            $customer->save();
 
-            $user->points -= $oferta->cost; // Para reflejarlo en la sesión si usas Auth
-            $mensaje = 'Oferta activada correctamente.';
+            return redirect()->back()->with('message', 'Oferta activada correctamente.');
         } else {
-            $mensaje = 'No tienes suficientes puntos.';
+            return redirect()->back()->with('message', 'No tienes suficientes puntos para activar esta oferta.');
         }
-
-        return back()->with('mensaje', $mensaje);
     }
 }

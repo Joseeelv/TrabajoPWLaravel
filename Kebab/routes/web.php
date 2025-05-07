@@ -41,7 +41,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
 
     Route::get('/ofertas', [OfertaController::class, 'index'])->name('ofertas');
-    Route::post('/ofertas/activar', [OfertaController::class, 'activar'])->name('ofertas.activar');
+    Route::post('/ofertas/activar', [OfertaController::class, 'activate'])->name('ofertas.activar');
     // Ruta de producto seleccionado en carta y archivo de inclusión a carrito
     Route::get('/producto', [ProductoController::class, 'mostrar']);
     Route::post('/producto', [ProductoController::class, 'mostrar'])->name('producto');
