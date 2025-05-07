@@ -23,7 +23,7 @@
                     'manager' => [
                         'Inicio' => url('/manager'),
                         'Reabastecer' => url('/manager/replenishment'),
-                        'Transacciones' => url('/transactions'),
+                        'Transacciones' => url('/manager/transactions'),
                         'Perfil' => url('/perfil'),
                         'Cerrar Sesión' => route('logout'),
                     ],
