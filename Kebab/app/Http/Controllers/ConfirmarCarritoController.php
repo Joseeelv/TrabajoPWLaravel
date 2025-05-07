@@ -65,7 +65,7 @@ class ConfirmarCarritoController extends Controller
                 }
 
                 $orderItem = OrderItem::create([
-                    'order_id' => $order->id,
+                    'order_id' => $order->order_id,
                     'product_id' => $p['id'],
                     'quantity' => $p['cantidad'],
                     'price' => $precio
@@ -87,7 +87,7 @@ class ConfirmarCarritoController extends Controller
                         }
 
                         OrderItemIngredient::create([
-                            'order_item_id' => $orderItem->order_id,
+                            'order_item_id' => $orderItem->order_item_id,
                             'ingredient_id' => $ingId,
                             'quantity' => $cantidad,
                         ]);
