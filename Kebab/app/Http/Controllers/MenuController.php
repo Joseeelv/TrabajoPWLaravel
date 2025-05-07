@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Producto;
+use App\Models\Product;
 
 class MenuController extends Controller
 {
@@ -19,7 +19,7 @@ class MenuController extends Controller
 
         // Obtener categorías (cache en sesión)
         if (!session()->has('categorias')) {
-            $categorias = Producto::select('category as cat')->distinct()->get()->toArray();
+            $categorias = Product::select('category as cat')->distinct()->get()->toArray();
             session(['categorias' => $categorias]);
         } else {
             $categorias = session('categorias');
@@ -27,8 +27,8 @@ class MenuController extends Controller
 
         // Filtrar productos
         $productos = ($actualCategory !== 'Ninguna')
-            ? Producto::where('category', $actualCategory)->select('product_id as id', 'product_name as nombre', 'img_src as img')->get()
-            : Producto::select('product_id as id', 'product_name as nombre', 'img_src as img')->get();
+            ? Product::where('category', $actualCategory)->select('product_id as id', 'product_name as nombre', 'img_src as img')->get()
+            : Product::select('product_id as id', 'product_name as nombre', 'img_src as img')->get();
 
         return view('Menu', compact('categorias', 'productos', 'actualCategory'));
     }
