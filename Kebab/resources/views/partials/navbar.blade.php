@@ -4,14 +4,14 @@
 
 <header>
     <nav class="navbar">
-        <h1 class="navbar-title">DÖNER KEBAB SOCIETY</h1>
+        <img id="logo" src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo DKS">
 
         @auth
             @php
                 $user = Auth::user();
                 $userType = $user->user_type ?? null;
 
-                $menuItems = match($userType) {
+                $menuItems = match ($userType) {
                     'admin' => [
                         'Inicio' => url('/admin'),
                         'Empleados' => url('/employees'),
@@ -44,11 +44,12 @@
 
             @foreach ($menuItems as $label => $url)
                 @if ($label === 'Cerrar Sesión')
-                    <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                    <a href="{{ route('logout') }}" class="menu-link" 
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        {{ $label }}
+                    </a>
+                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display:none;">
                         @csrf
-                        <button type="submit" class="menu-link" style="background:none;border:none;cursor:pointer;">
-                            {{ $label }}
-                        </button>
                     </form>
                 @else
                     <a href="{{ $url }}" class="menu-link">{{ $label }}</a>
@@ -59,7 +60,7 @@
                 <div id="kebabito-container">
                     <img id="kebabito-image" src="{{ asset('assets/images/logo/DKS.png') }}" alt="Kebabito image">
                     @if(session()->has('points'))
-                    <span>{{ session('points') }}</span>
+                        <span>{{ session('points') }}</span>
                     @endif
                 </div>
 
