@@ -24,6 +24,7 @@
                         'Inicio' => url('/manager'),
                         'Reabastecer' => url('/manager/replenishment'),
                         'Transacciones' => url('/manager/transactions'),
+                        'Reseñas' => url('/manager/reviews'),
                         'Perfil' => url('/perfil'),
                         'Cerrar Sesión' => route('logout'),
                     ],

@@ -62,7 +62,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/manager/replenishment', [ReplenishmentController::class, 'index'])->name('manager.replenishment');
     Route::post('/manager/replenishment', [ReplenishmentController::class, 'store'])->name('manager.replenishment.store');
     Route::get('/manager/transactions', [TransactionController::class, 'index'])->name('manager.transaction');
-
+    Route::get('/manager/reviews', [ReviewController::class, 'managerIndex'])->name('manager.reviews.index');
+    Route::get('/review/{id}/responder', [ReviewController::class, 'respondForm'])->name('manager.reviews.respond.form');
+    Route::post('/review/{id}/responder', [ReviewController::class, 'respond'])->name('manager.reviews.respond');
 });
 
 Route::middleware(['auth'])->group(function () {

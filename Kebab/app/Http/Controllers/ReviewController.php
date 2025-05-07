@@ -17,6 +17,7 @@ class ReviewController extends Controller
         return view('review', compact('reviews'));
     }
 
+
     public function store(Request $request)
     {
         $request->validate([
@@ -24,21 +25,53 @@ class ReviewController extends Controller
             'review_text' => 'nullable|string|max:1000',
         ]);
 
-        // Verifica si el usuario actual está en CUSTOMERS
-        $userId = auth()->id();
-        $isCustomer = Customer::where('user_id', $userId)->exists();
+        $user = Auth::user();
 
-        if (!$isCustomer) {
-            return redirect()->route('reviews')->withErrors(['Solo los clientes pueden dejar reseñas.']);
+        // Verificar que sea un customer válido (que tenga entrada en CUSTOMERS)
+        $customer = Customer::where('user_id', $user->user_id)->first();
+
+        if (!$customer) {
+            return redirect()->route('reviews')->withErrors(['error' => 'Solo los clientes pueden dejar reseñas.']);
         }
 
         Review::create([
-            'user_id' => $userId,
+            'user_id' => $customer->user_id, // Asegura que existe en CUSTOMERS
             'rating' => $request->input('rating'),
             'review_text' => $request->input('review_text'),
             'review_date' => now()->toDateString(),
         ]);
 
-        return redirect()->route('review')->with('mensaje', '¡Reseña enviada correctamente!');
+        return redirect()->route('reviews')->with('mensaje', '¡Reseña enviada correctamente!');
     }
+
+
+    public function managerIndex()
+    {
+        $reviews = Review::with(['customer.user'])->orderByDesc('review_date')->get();
+        return view('manager.reviews.index', compact('reviews'));
+    }
+
+    public function respondForm($id)
+    {
+        $review = Review::with(['customer.user'])->findOrFail($id);
+        return view('manager.reviews.respond', compact('review'));
+    }
+
+    public function respond(Request $request, $id)
+    {
+        $request->validate([
+            'answer_text' => 'required|string|max:1000',
+        ]);
+
+        $review = Review::findOrFail($id);
+        $review->answer_text = $request->answer_text;
+
+        // ✅ Esto debe ser un número, no una cadena
+        $review->manager_id = Auth::user()->id;
+
+        $review->save();
+
+        return redirect()->route('manager.reviews.index')->with('mensaje', 'Respuesta enviada correctamente.');
+    }
+
 }
