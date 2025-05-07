@@ -6,7 +6,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MenuController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\Manager\ReplenishmentController;
+use App\Http\Controllers\Manager\TransactionController;
 // Página de inicio
 Route::get('/', function () {
     return view('index');
@@ -26,24 +27,21 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Ruta del dashboard para el usuario cliente
 Route::middleware(['auth'])->get('/dashboard', function () {
     $user = Auth::user();
-    return view('dashboard', ['points' => 0]); // o reemplaza 0 por $user->points
+    return view('dashboard', ['points' => $user->points, 'user' => $user]);
 })->name('dashboard');
 
 // Ruta de perfil
 Route::middleware(['auth'])->get('/perfil', function () {
     return view('perfil');
 });
+
+// Ruta de manager  
 Route::middleware(['auth'])->group(function () {
     Route::get('/manager', function () {
         return view('manager.index');
     });
-    Route::get('/manager/replenishment', function () {
-        // Aquí puedes redirigir a tu vista o controlador real
-    });
-    Route::get('/manager/transactions', function () {
-        // Igual que arriba
-    });
-    Route::get('/perfil', function () {
-        // Perfil del usuario
-    });
+    Route::get('/manager/replenishment', [ReplenishmentController::class, 'index'])->name('manager.replenishment');
+    Route::post('/manager/replenishment', [ReplenishmentController::class, 'store'])->name('manager.replenishment.store');
+    Route::get('/manager/transactions', [TransactionController::class, 'index'])->name('manager.transaction');
+
 });
