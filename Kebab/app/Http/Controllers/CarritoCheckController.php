@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CustomerOffers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class CarritoCheckController extends Controller
@@ -10,18 +11,18 @@ class CarritoCheckController extends Controller
     public function index(Request $request)
     {
         try {
-            $userId = auth()->id(); // Asumiendo autenticación con Laravel
+            $userId = Auth::user()->user_id; // Asumiendo autenticación con Laravel
 
-            $ofertasActivas = CustomerOffers::with(['offer.product'])
+            $ofertasActivas = CustomerOffers::with(['offers.product'])
                 ->where('user_id', $userId)
                 ->get()
                 ->map(function ($co) {
                     return [
-                        'of_name' => $co->offer->offer_text,
-                        'discount' => $co->offer->discount,
-                        'nombre' => $co->offer->product->product_name,
-                        'img' => $co->offer->product->img_src,
-                        'coronas' => $co->offer->cost,
+                        'of_name' => $co->offers->offer_text,
+                        'discount' => $co->offers->discount,
+                        'nombre' => $co->offers->product->product_name,
+                        'img' => $co->offers->product->img_src,
+                        'coronas' => $co->offers->cost,
                         'used' => $co->used,
                     ];
                 });
@@ -52,6 +53,7 @@ class CarritoCheckController extends Controller
             return view('carrito.index', compact('ofertasActivas', 'compra', 'v_total'));
 
         } catch (\Exception $e) {
+            \Log::error("Error en la compra: " . $e->getMessage());
             return redirect()->route('error.500');
         }
     }

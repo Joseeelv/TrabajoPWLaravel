@@ -12,7 +12,7 @@ class Offers extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'prod_id');
+        return $this->belongsTo(Product::class, 'prod_id', 'product_id');
     }
 
     public function customers()
