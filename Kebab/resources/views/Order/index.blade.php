@@ -13,18 +13,16 @@
     <h1>Mis Pedidos</h1>
     <ul class="orders-list">
       @foreach ($orders as $order)
-        <li class="order-item">
-          <h2>Pedido del {{ $order->order_date }}</h2>
-          <ul class="products-list">
+        <h3>Pedido #{{ $order->order_id }} ({{ $order->order_date }})</h3>
+        <ul>
             @foreach ($order->items as $item)
-              <li class="product-item">
-                Producto: {{ $item->product->product_name }} |
-                Cantidad: {{ $item->quantity }} |
-                Precio: {{ $item->price }}€
-              </li>
+                <li>
+                    Producto: {{ $item->product->product_name ?? 'Producto no encontrado' }}<br>
+                    Cantidad: {{ $item->quantity }}<br>
+                    Precio: {{ $item->price }} €
+                </li>
             @endforeach
-          </ul>
-        </li>
+        </ul>
       @endforeach
     </ul>
   </section>

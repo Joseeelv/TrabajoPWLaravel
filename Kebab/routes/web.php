@@ -12,6 +12,7 @@ use App\Http\Controllers\Manager\ReplenishmentController;
 use App\Http\Controllers\Manager\TransactionController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CarritoCheckController;
+use App\Http\Controllers\ConfirmarCarritoController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\OfertaController;
 // Página de inicio
@@ -73,6 +74,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::get('/carrito', [CarritoCheckController::class, 'index'])->name('carrito.index');
+Route::post('/confirmar-compra', [ConfirmarCarritoController::class, 'confirmar'])->name('carrito.confirmar');
 Route::get('/pedido-confirmado', function () {
     return view('pedido_confirmado');
 })->name('pedido.confirmado');

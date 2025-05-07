@@ -10,10 +10,10 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        $userId = Auth::user()->user_id;
 
         // Obtener pedidos con sus productos
-        $orders = Order::where('user_id', $user->id)
+        $orders = Order::where('user_id', $userId)
             ->with(['items.product']) // Eager loading
             ->get();
 

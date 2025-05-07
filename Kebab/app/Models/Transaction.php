@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model {
     protected $primaryKey = 'transaction_id';
     public $timestamps = false;
-    protected $fillable = ['replenishment_id', 'transaction_money'];
+    protected $fillable = ['order_id', 'replenishment_id', 'transaction_money'];
 
     public function order() {
         return $this->belongsTo(Order::class);
@@ -16,6 +16,5 @@ class Transaction extends Model {
     public function replenishment() {
         return $this->belongsTo(Replenishment::class);
     }
-    
 }
 
