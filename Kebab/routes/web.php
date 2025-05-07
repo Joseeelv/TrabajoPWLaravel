@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Manager\ReplenishmentController;
 use App\Http\Controllers\Manager\TransactionController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CarritoCheckController;
+
 // Página de inicio
 Route::get('/', function () {
     return view('index');
@@ -52,3 +55,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/manager/transactions', [TransactionController::class, 'index'])->name('manager.transaction');
 
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/pedidos', [OrderController::class, 'index'])->name('orders.index');
+});
+
+
+Route::get('/carrito', [CarritoCheckController::class, 'index'])->name('carrito.index');
+Route::get('/pedido-confirmado', function () {
+    return view('pedido_confirmado');
+})->name('pedido.confirmado');
