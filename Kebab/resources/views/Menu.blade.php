@@ -5,9 +5,9 @@
 <head>
     @section('header')
     <title>Menu</title>
-    <link rel="icon" href="../assets/images/logo/DKS.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../assets/css/styles.css">
-    <link rel="stylesheet" href="../assets/css/menu.css">
+    <link rel="icon" href="{{ asset('assets/images/logo/DKS.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/menu.css') }}">
     @show
 </head>
 
@@ -39,8 +39,8 @@
                 $id = e($f->id);
             @endphp
 
-            @if(session()->has('user_id'))
-                <form method="POST" action="{{ url('/producto') }}">
+            @auth
+                <form method="POST" action="{{ route('producto') }}">
                     @csrf
                     <input type="hidden" name="idProdSelecCarta" value="{{ $id }}">
                     <button type="submit" class="container-producto">
@@ -49,11 +49,11 @@
                     </button>
                 </form>
             @else
-                <button onclick="window.location.href='{{ url('/login') }}'" class="container-producto">
+                <button onclick="window.location.href='{{ route('login') }}'" class="container-producto">
                     <img class="imagen-producto" src="{{ $productImg }}" alt="{{ $productName }}">
                     <span>{{ $productName }}</span>
                 </button>
-            @endif
+            @endauth
         @endforeach
     </ul>
 </main>
