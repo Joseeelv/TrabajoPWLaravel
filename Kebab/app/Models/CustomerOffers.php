@@ -9,7 +9,7 @@ class CustomerOffers extends Model
     protected $table = 'CUSTOMERS_OFFERS';
     public $timestamps = false;
 
-    public function offer()
+    public function offers()
     {
         return $this->belongsTo(Offers::class, 'offer_id', 'offer_id');
     }
