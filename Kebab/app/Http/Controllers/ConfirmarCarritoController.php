@@ -14,7 +14,7 @@ use App\Models\Transaction;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Ingredient;
-use App\Models\CustomerOffer;
+use App\Models\CustomerOffers;
 
 class ConfirmarCarritoController extends Controller
 {
@@ -105,7 +105,7 @@ class ConfirmarCarritoController extends Controller
 
             // Marcar ofertas como usadas
             foreach ($ofertasActivas as $f) {
-                CustomerOffer::where('user_id', $userId)
+                CustomerOffers::where('user_id', $userId)
                     ->where('offer_id', $f['offer_id'])
                     ->update(['used' => 1]);
             }

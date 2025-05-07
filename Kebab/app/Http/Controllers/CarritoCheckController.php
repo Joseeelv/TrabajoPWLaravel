@@ -18,6 +18,7 @@ class CarritoCheckController extends Controller
                 ->get()
                 ->map(function ($co) {
                     return [
+                        'offer_id' => $co->offers->offer_id,
                         'of_name' => $co->offers->offer_text,
                         'discount' => $co->offers->discount,
                         'nombre' => $co->offers->product->product_name,
