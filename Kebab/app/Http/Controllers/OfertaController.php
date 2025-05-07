@@ -45,7 +45,7 @@ class OfertaController extends Controller
             $customer->points -= $offer->cost;
             $user->save();
             $customer->save();
-
+            session(['points' => $customer->points]);
             return redirect()->back()->with('message', 'Oferta activada correctamente.');
         } else {
             return redirect()->back()->with('message', 'No tienes suficientes puntos para activar esta oferta.');
