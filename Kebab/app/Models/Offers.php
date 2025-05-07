@@ -12,6 +12,12 @@ class Offers extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'prod_id', 'product_id');
+        return $this->belongsTo(Product::class, 'prod_id');
+    }
+
+    public function customers()
+    {
+        return $this->belongsToMany(User::class, 'CUSTOMERS_OFFERS', 'offer_id', 'user_id')
+                    ->withPivot('activation_date');
     }
 }
