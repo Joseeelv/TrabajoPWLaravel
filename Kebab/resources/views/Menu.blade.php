@@ -12,49 +12,48 @@
 </head>
 
 <body>
-@section('content')
-<main>
-    <aside class="sidebar">
-        <ul>
-            <form method="POST" action="{{ route('menu') }}">
-                @csrf
-                <input type="hidden" name="category" value="Ninguna">
-                <button type="submit">Ninguna</button>
-            </form>
-            @foreach($categorias as $c)
-                <form method="POST" action="{{ route('menu') }}">
-                    @csrf
-                    <input type="hidden" name="category" value="{{ $c['cat'] }}">
-                    <button type="submit">{{ $c['cat'] }}</button>
-                </form>
-            @endforeach
-        </ul>
-    </aside>
+    @section('content')
+        <main>
+            <aside class="sidebar">
+                <ul>
+                    <form method="GET" action="{{ route('menu') }}">
+                        @csrf
+                        <input type="hidden" name="category" value="Ninguna">
+                        <button type="submit">Ninguna</button>
+                    </form>
+                    @foreach($categorias as $c)
+                        <form method="GET" action="{{ route('menu') }}">
+                            <input type="hidden" name="category" value="{{ $c['cat'] }}">
+                            <button type="submit">{{ $c['cat'] }}</button>
+                        </form>
+                    @endforeach
+                </ul>
+            </aside>
 
-    <ul class="container-productos">
-        @foreach($productos as $f)
-            @php
-                $productName = e($f->nombre);
-                $productImg = asset('assets/images/productos/' . e($f->img));
-                $id = e($f->id);
-            @endphp
+            <ul class="container-productos">
+                @foreach($productos as $f)
+                    @php
+                        $productName = e($f->nombre);
+                        $productImg = asset('assets/images/productos/' . e($f->img));
+                        $id = e($f->id);
+                    @endphp
 
-            @auth
-                <form method="POST" action="{{ route('producto') }}">
-                    @csrf
-                    <input type="hidden" name="idProdSelecCarta" value="{{ $id }}">
-                    <button type="submit" class="container-producto">
-                        <img class="imagen-producto" src="{{ $productImg }}" alt="{{ $productName }}">
-                        <span>{{ $productName }}</span>
-                    </button>
-                </form>
-            @else
-                <button onclick="window.location.href='{{ route('login') }}'" class="container-producto">
-                    <img class="imagen-producto" src="{{ $productImg }}" alt="{{ $productName }}">
-                    <span>{{ $productName }}</span>
-                </button>
-            @endauth
-        @endforeach
-    </ul>
-</main>
-@endsection
+                    @auth
+                        <form method="POST" action="{{ route('producto') }}">
+                            @csrf
+                            <input type="hidden" name="idProdSelecCarta" value="{{ $id }}">
+                            <button type="submit" class="container-producto">
+                                <img class="imagen-producto" src="{{ $productImg }}" alt="{{ $productName }}">
+                                <span>{{ $productName }}</span>
+                            </button>
+                        </form>
+                    @else
+                        <button onclick="window.location.href='{{ route('login') }}'" class="container-producto">
+                            <img class="imagen-producto" src="{{ $productImg }}" alt="{{ $productName }}">
+                            <span>{{ $productName }}</span>
+                        </button>
+                    @endauth
+                @endforeach
+            </ul>
+        </main>
+    @endsection
