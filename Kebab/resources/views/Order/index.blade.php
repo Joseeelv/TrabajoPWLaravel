@@ -1,11 +1,10 @@
 @extends('layouts.app')
 
-@section('head')
+@section('header')
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mis Pedidos</title>
 <link rel="stylesheet" href="../assets/css/styles.css">
-<link rel="stylesheet" href="../assets/css/pedidos.css">
 @endsection
 
 @section('content')
@@ -31,3 +30,6 @@
   </section>
 </main>
 @endsection
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/pedidos.css') }}">
+@endpush
