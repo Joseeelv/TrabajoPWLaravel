@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -15,11 +16,11 @@ use App\Models\Product;
 use App\Models\Ingredient;
 use App\Models\CustomerOffer;
 
-class CartController extends Controller
+class ConfirmarCarritoController extends Controller
 {
     public function confirmar(Request $request)
     {
-        $userId = auth()->id();
+        $userId = Auth::user()->user_id;
         $compra = Session::get('compra', []);
         $ofertasActivas = Session::get('ofertasActivas', []);
 

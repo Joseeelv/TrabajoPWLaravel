@@ -39,7 +39,7 @@
                 @endforeach
             </ul>
 
-            <form action="{{ route('pedido.confirmado') }}" method="GET">
+            <form action="{{ route('carrito.confirmar') }}" method="POST">
                 @csrf
                 Precio total: {{ number_format($v_total, 2) }} €
                 <input type="submit" value="Confirmar" />
