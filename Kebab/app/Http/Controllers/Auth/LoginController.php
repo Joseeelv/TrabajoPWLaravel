@@ -43,7 +43,7 @@ class LoginController extends Controller
             $user = \App\Models\User::where('username', $username)->first();
         
             return match ($user->user_type) {
-                'admin' => redirect('/admin'),
+                'admin' => redirect('/adminPanel'),
                 'manager' => redirect('/manager'),
                 'customer' => redirect('/dashboard'),
                 default => redirect('/'),
