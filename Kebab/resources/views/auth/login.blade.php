@@ -27,5 +27,6 @@
     @endif
   </form>
   <p>¿No tienes una cuenta? <a href="{{ route('register') }}">Regístrate</a></p>
+  <p>¿Olvidaste tu contraseña? <a href="{{ route('password.request') }}">Recuperar contraseña</a></p>
 </main>
 @endsection

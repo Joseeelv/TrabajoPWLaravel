@@ -17,7 +17,8 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\OfertaController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 // Página de inicio
 Route::get('/', function () {
     return view('index');
@@ -109,3 +110,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/adminPanel/recontratar', [EmployeeController::class, 'hire'])->name('admin.employees.rehire');
     Route::post('/adminPanel/despedir', [EmployeeController::class, 'fire'])->name('admin.employees.fire');
 });
+
+Route::get('password/forgot', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
