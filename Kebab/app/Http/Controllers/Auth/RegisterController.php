@@ -52,7 +52,7 @@ class RegisterController extends Controller
         if (!$isManager) {
             $rules['email'] = [
                 'required', 'email',
-                function ($value, $fail) use ($allowedDomains) {
+                function ($attribute, $value, $fail) use ($allowedDomains) {
                     $domain = substr(strrchr($value, "@"), 1);
                     if (!in_array($domain, $allowedDomains)) {
                         $fail('Por favor, utiliza un dominio de correo electrónico válido.');
