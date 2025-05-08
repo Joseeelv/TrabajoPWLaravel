@@ -3,37 +3,34 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Producto;
+use App\Models\Product;
 
 class MenuController extends Controller
 {
     public function index(Request $request)
     {
-        // Store or update current category selection
+        // Detectar cambio de categoría
         if ($request->has('category')) {
-            session(['actual_category' => $request->input('category')]);
-            return redirect()->route('menu');
+            session(['actual_category' => $request->query('category')]);
         }
 
-        // Default category
-        if (!session()->has('actual_category')) {
-            session(['actual_category' => 'Ninguna']);
-        }
+        // Categoría por defecto
+        $actualCategory = session('actual_category', 'Ninguna');
 
-        // Get unique categories once
+        // Obtener categorías (cache en sesión)
         if (!session()->has('categorias')) {
-            $categorias = Producto::select('category as cat')->distinct()->get()->toArray();
+            $categorias = Product::select('category as cat')->distinct()->get()->toArray();
             session(['categorias' => $categorias]);
         } else {
             $categorias = session('categorias');
         }
 
-        // Filter products by selected category
-        $actualCategory = session('actual_category');
+        // Filtrar productos
         $productos = ($actualCategory !== 'Ninguna')
-            ? Producto::where('category', $actualCategory)->select('product_id as id', 'product_name as nombre', 'img_src as img')->get()
-            : Producto::select('product_id as id', 'product_name as nombre', 'img_src as img')->get();
+            ? Product::where('category', $actualCategory)->select('product_id as id', 'product_name as nombre', 'img_src as img')->get()
+            : Product::select('product_id as id', 'product_name as nombre', 'img_src as img')->get();
 
         return view('Menu', compact('categorias', 'productos', 'actualCategory'));
     }
+
 }

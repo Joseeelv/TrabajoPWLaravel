@@ -56,4 +56,24 @@ class User extends Authenticatable
         return $this->hasOne(User::class, 'user_id', 'user_id');
     }
 
+    public function customer()
+    {
+        return $this->hasOne(Customer::class, 'user_id');
+    }
+
+    public function manager()
+    {
+        return $this->hasOne(Manager::class, 'user_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'user_id');
+    }
+
+    public function reviewsRespondidas()
+    {
+        return $this->hasMany(Review::class, 'manager_id');
+    }
+
 }
