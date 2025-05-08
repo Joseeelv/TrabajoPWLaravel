@@ -11,6 +11,7 @@
     <h1>Regístrate</h1>
     <form method="POST" action="{{ route('register') }}">
         @csrf
+        <input type="hidden" name="user_type" value="customer">
         <input type="text" name="username" placeholder="Nombre de usuario" value="{{ old('username') }}" required>
         @error('username') <p class="error">{{ $message }}</p> @enderror
 

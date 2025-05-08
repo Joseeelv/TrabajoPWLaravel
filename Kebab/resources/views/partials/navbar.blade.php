@@ -13,11 +13,11 @@
 
                 $menuItems = match ($userType) {
                     'admin' => [
-                        'Inicio' => url('/admin'),
-                        'Empleados' => url('/employees'),
-                        'Contratar' => url('/contratar'),
+                        'Inicio' => url('/adminPanel'),
+                        'Empleados' => url('/adminPanel/empleados'),
+                        'Contratar' => url('/adminPanel/contratar'),
                         'Perfil' => url('/perfil'),
-                        'Transacciones' => url('/transactions'),
+                        'Transacciones' => url('/manager/transactions'),
                         'Cerrar Sesión' => route('logout'),
                     ],
                     'manager' => [

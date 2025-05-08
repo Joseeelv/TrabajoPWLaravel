@@ -16,7 +16,6 @@ class User extends Authenticatable
     protected $primaryKey = 'user_id';
     public $incrementing = true;
     protected $keyType = 'int';
-
     protected $fillable = [
         'user_id',
         'username',
@@ -24,7 +23,6 @@ class User extends Authenticatable
         'password',
         'user_type',
         'img_src',
-        // otros campos
     ];
 
     protected $hidden = [

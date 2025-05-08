@@ -1,5 +1,12 @@
 @extends('layouts.app')
-
+<head>
+    @section('header')
+    <title>Manager Panel</title>
+    <link rel="icon" href="{{ asset('assets/images/logo/DKS.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/manager.css') }}">
+    @show
+</head>
 @section('content')
     @php
         $image = Auth::user()->img_src ?? 'default.jpg';

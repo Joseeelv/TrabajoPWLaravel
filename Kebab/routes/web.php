@@ -15,6 +15,9 @@ use App\Http\Controllers\CarritoCheckController;
 use App\Http\Controllers\ConfirmarCarritoController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\OfertaController;
+use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\ProfileController;
+
 // Página de inicio
 Route::get('/', function () {
     return view('index');
@@ -51,15 +54,17 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Ruta de perfil
-Route::middleware(['auth'])->get('/perfil', function () {
-    return view('perfil');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/perfil', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/perfil', [ProfileController::class, 'update'])->name('profile.update');
 });
+
 
 // Ruta de manager  
 Route::middleware(['auth'])->group(function () {
     Route::get('/manager', function () {
         return view('manager.index');
-    });
+    })->name('manager.index');
     Route::get('/manager/replenishment', [ReplenishmentController::class, 'index'])->name('manager.replenishment');
     Route::post('/manager/replenishment', [ReplenishmentController::class, 'store'])->name('manager.replenishment.store');
     Route::get('/manager/transactions', [TransactionController::class, 'index'])->name('manager.transaction');
@@ -78,3 +83,29 @@ Route::post('/confirmar-compra', [ConfirmarCarritoController::class, 'confirmar'
 Route::get('/pedido-confirmado', function () {
     return view('pedido_confirmado');
 })->name('pedido.confirmado');
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/adminPanel', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+    Route::get('/adminPanel/empleados', function () {
+        $activeManagers = \App\Models\Manager::where('employee', '1')->get();
+        $inactiveManagers = \App\Models\Manager::where('employee', 'inactive')->get();
+        return view('admin.employees.index', [
+            'activeManagers' => $activeManagers,
+            'inactiveManagers' => $inactiveManagers,
+        ]);
+    })->name('admin.employees.index');
+    Route::get('/adminPanel/contratar', function () {
+        $activeManagers = \App\Models\Manager::where('employee', 1)->get();
+        $inactiveManagers = \App\Models\Manager::where('employee', 0)->get();
+        return view('admin.employees.hire', [
+            'activeManagers' => $activeManagers,
+            'inactiveManagers' => $inactiveManagers,
+        ]);
+    })->name('admin.employees.hire');
+    Route::post('/adminPanel/contratar', [EmployeeController::class, 'hire'])->name('admin.employees.hire');
+    Route::post('/adminPanel/recontratar', [EmployeeController::class, 'hire'])->name('admin.employees.rehire');
+    Route::post('/adminPanel/despedir', [EmployeeController::class, 'fire'])->name('admin.employees.fire');
+});
