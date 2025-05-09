@@ -4,8 +4,53 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "88970a0117c062eed55fa8728fc43833",
+    "content-hash": "bdcd2e6a5a10cdb99d5f150263d896e1",
     "packages": [
+        {
+            "name": "aitor24/laralang",
+            "version": "3.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/24aitor/laralang.git",
+                "reference": "f6e96fd00e84e1db7b99622c4f62e6a5f8d3b8b3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/24aitor/laralang/zipball/f6e96fd00e84e1db7b99622c4f62e6a5f8d3b8b3",
+                "reference": "f6e96fd00e84e1db7b99622c4f62e6a5f8d3b8b3",
+                "shasum": ""
+            },
+            "type": "translations",
+            "autoload": {
+                "psr-4": {
+                    "Aitor24\\Laralang\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Erik Campobadal",
+                    "email": "soc@erik.cat",
+                    "homepage": "https://erik.cat/",
+                    "role": "developer"
+                },
+                {
+                    "name": "Aitor Riba",
+                    "email": "1aitorribaarchilla@gmail.com",
+                    "homepage": "https://aitorriba.com/",
+                    "role": "author"
+                }
+            ],
+            "description": "This package let you translate strings from any language to another in laravel 5.X",
+            "support": {
+                "issues": "https://github.com/24aitor/laralang/issues",
+                "source": "https://github.com/24aitor/laralang/tree/master"
+            },
+            "time": "2016-12-16T22:58:44+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.12.3",

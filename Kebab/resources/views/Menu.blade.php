@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Menú')
+@section('title', __('menu.products')) <!-- Usar la traducción para el título -->
 
 <head>
     @section('header')
-    <title>Menu</title>
+    <title>{{ __('menu.products') }}</title>
     <link rel="icon" href="{{ asset('assets/images/logo/DKS.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/menu.css') }}">
@@ -19,12 +19,12 @@
                     <form method="GET" action="{{ route('menu') }}">
                         @csrf
                         <input type="hidden" name="category" value="Ninguna">
-                        <button type="submit">Ninguna</button>
+                        <button type="submit">{{ __('messages.Ninguna') }}</button> <!-- Traducir 'Ninguna' -->
                     </form>
                     @foreach($categorias as $c)
                         <form method="GET" action="{{ route('menu') }}">
                             <input type="hidden" name="category" value="{{ $c['cat'] }}">
-                            <button type="submit">{{ $c['cat'] }}</button>
+                            <button type="submit">{{ __('messages.' . $c['cat']) }}</button> <!-- Traducir dinámicamente -->
                         </form>
                     @endforeach
                 </ul>
@@ -44,13 +44,13 @@
                             <input type="hidden" name="idProdSelecCarta" value="{{ $id }}">
                             <button type="submit" class="container-producto">
                                 <img class="imagen-producto" src="{{ $productImg }}" alt="{{ $productName }}">
-                                <span>{{ $productName }}</span>
+                                <span>{{ __('messages.' . $productName) }}</span>
                             </button>
                         </form>
                     @else
                         <button onclick="window.location.href='{{ route('login') }}'" class="container-producto">
                             <img class="imagen-producto" src="{{ $productImg }}" alt="{{ $productName }}">
-                            <span>{{ $productName }}</span>
+                            <span>{{ __('messages.' . $productName) }}</span>
                         </button>
                     @endauth
                 @endforeach

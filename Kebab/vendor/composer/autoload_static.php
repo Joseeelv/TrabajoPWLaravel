@@ -174,6 +174,7 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         'A' => 
         array (
             'App\\' => 4,
+            'Aitor24\\Laralang\\' => 17,
         ),
     );
 
@@ -513,9 +514,23 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
             0 => __DIR__ . '/../..' . '/app',
             1 => __DIR__ . '/..' . '/laravel/pint/app',
         ),
+        'Aitor24\\Laralang\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/aitor24/laralang/src',
+        ),
     );
 
     public static $classMap = array (
+        'Aitor24\\Laralang\\Builder' => __DIR__ . '/..' . '/aitor24/laralang/src/Builder.php',
+        'Aitor24\\Laralang\\Builder\\ApertiumTrans' => __DIR__ . '/..' . '/aitor24/laralang/src/Builder/ApertiumTrans.php',
+        'Aitor24\\Laralang\\Builder\\GoogleTrans' => __DIR__ . '/..' . '/aitor24/laralang/src/Builder/GoogleTrans.php',
+        'Aitor24\\Laralang\\Builder\\MymemoryTrans' => __DIR__ . '/..' . '/aitor24/laralang/src/Builder/MymemoryTrans.php',
+        'Aitor24\\Laralang\\Builder\\Translation' => __DIR__ . '/..' . '/aitor24/laralang/src/Builder/Translation.php',
+        'Aitor24\\Laralang\\Controllers\\LaralangController' => __DIR__ . '/..' . '/aitor24/laralang/src/Controllers/LaralangController.php',
+        'Aitor24\\Laralang\\Facades\\Laralang' => __DIR__ . '/..' . '/aitor24/laralang/src/Facades/Laralang.php',
+        'Aitor24\\Laralang\\LaralangServiceProvider' => __DIR__ . '/..' . '/aitor24/laralang/src/LaralangServiceProvider.php',
+        'Aitor24\\Laralang\\Middleware\\LaralangMiddleware' => __DIR__ . '/..' . '/aitor24/laralang/src/Middleware/LaralangMiddleware.php',
+        'Aitor24\\Laralang\\Models\\DB_Translation' => __DIR__ . '/..' . '/aitor24/laralang/src/Models/DB_Translation.php',
         'App\\Http\\Controllers\\Admin\\EmployeeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/EmployeeController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
@@ -527,6 +542,7 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\Dashboard' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\LanguageController' => __DIR__ . '/../..' . '/app/Http/Controllers/LanguageController.php',
         'App\\Http\\Controllers\\Manager\\ReplenishmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/Manager/ReplenishmentController.php',
         'App\\Http\\Controllers\\Manager\\TransactionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Manager/TransactionController.php',
         'App\\Http\\Controllers\\MenuController' => __DIR__ . '/../..' . '/app/Http/Controllers/MenuController.php',
@@ -537,7 +553,7 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         'App\\Http\\Controllers\\ReviewController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReviewController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\IsAdmin' => __DIR__ . '/../..' . '/app/Http/Middleware/IsAdmin.php',
-        'App\\Http\\Middleware\\SetLocale' => __DIR__ . '/../..' . '/app/Http/Middleware/SetLocale.php',
+        'App\\Http\\Middleware\\LocaleMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/LocaleMiddleware.php',
         'App\\Models\\Customer' => __DIR__ . '/../..' . '/app/Models/Customer.php',
         'App\\Models\\CustomerOffers' => __DIR__ . '/../..' . '/app/Models/CustomerOffers.php',
         'App\\Models\\Ingredient' => __DIR__ . '/../..' . '/app/Models/Ingredient.php',

@@ -15,16 +15,17 @@
                         <input type="image" width="100px"
                             src="{{ asset('assets/images/productos/' . $offer->product->img_src) }}" alt="">
                     </form>
-                    <p>Oferta: {{ $offer->product->product_name }}</p>
-                    <p>Precio: {{ $offer->cost }} <img src="{{ asset('assets/images/logo/DKS.png') }}" alt='DKS Logo'
+                    <p>{{ __('messages.Oferta') }}: {{ __('messages.' .  $offer->product->product_name) }}</p>
+                    <p>{{ __('messages.Precio') }}: {{ $offer->cost }} <img src="{{ asset('assets/images/logo/DKS.png') }}" alt='DKS Logo'
                             width='20px'></p>
-                    <p>Descuento: {{ $offer->discount }}%</p>
-                    <p>{{ $offer->customers->contains($user->user_id) ? 'Activa' : 'No Activa' }}</p>
+                    <p>{{ __('messages.Descuento') }}: {{ $offer->discount }}%</p>
+                    <p>{{ $offer->customers->contains($user->user_id) ? __('messages.Activa') : __('messages.No Activa') }}</p>
                 </li>
             @endforeach
         </ul>
     </main>
 @endsection
+
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/ofertas.css') }}">
 @endpush

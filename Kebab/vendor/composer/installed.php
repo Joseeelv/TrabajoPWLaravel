@@ -3,13 +3,22 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'baaa1a68d0c056a9b4167184e676f2f29eb23f92',
+        'reference' => '06a25dc097f8cd9e489f745e05bff717c7ff99f6',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'aitor24/laralang' => array(
+            'pretty_version' => '3.4.3',
+            'version' => '3.4.3.0',
+            'reference' => 'f6e96fd00e84e1db7b99622c4f62e6a5f8d3b8b3',
+            'type' => 'translations',
+            'install_path' => __DIR__ . '/../aitor24/laralang',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'brick/math' => array(
             'pretty_version' => '0.12.3',
             'version' => '0.12.3.0',
@@ -388,7 +397,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'baaa1a68d0c056a9b4167184e676f2f29eb23f92',
+            'reference' => '06a25dc097f8cd9e489f745e05bff717c7ff99f6',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

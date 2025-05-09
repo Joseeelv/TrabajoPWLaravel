@@ -6,6 +6,16 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Aitor24\\Laralang\\Builder' => $vendorDir . '/aitor24/laralang/src/Builder.php',
+    'Aitor24\\Laralang\\Builder\\ApertiumTrans' => $vendorDir . '/aitor24/laralang/src/Builder/ApertiumTrans.php',
+    'Aitor24\\Laralang\\Builder\\GoogleTrans' => $vendorDir . '/aitor24/laralang/src/Builder/GoogleTrans.php',
+    'Aitor24\\Laralang\\Builder\\MymemoryTrans' => $vendorDir . '/aitor24/laralang/src/Builder/MymemoryTrans.php',
+    'Aitor24\\Laralang\\Builder\\Translation' => $vendorDir . '/aitor24/laralang/src/Builder/Translation.php',
+    'Aitor24\\Laralang\\Controllers\\LaralangController' => $vendorDir . '/aitor24/laralang/src/Controllers/LaralangController.php',
+    'Aitor24\\Laralang\\Facades\\Laralang' => $vendorDir . '/aitor24/laralang/src/Facades/Laralang.php',
+    'Aitor24\\Laralang\\LaralangServiceProvider' => $vendorDir . '/aitor24/laralang/src/LaralangServiceProvider.php',
+    'Aitor24\\Laralang\\Middleware\\LaralangMiddleware' => $vendorDir . '/aitor24/laralang/src/Middleware/LaralangMiddleware.php',
+    'Aitor24\\Laralang\\Models\\DB_Translation' => $vendorDir . '/aitor24/laralang/src/Models/DB_Translation.php',
     'App\\Http\\Controllers\\Admin\\EmployeeController' => $baseDir . '/app/Http/Controllers/Admin/EmployeeController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
@@ -17,6 +27,7 @@ return array(
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\Dashboard' => $baseDir . '/app/Http/Controllers/Dashboard.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
+    'App\\Http\\Controllers\\LanguageController' => $baseDir . '/app/Http/Controllers/LanguageController.php',
     'App\\Http\\Controllers\\Manager\\ReplenishmentController' => $baseDir . '/app/Http/Controllers/Manager/ReplenishmentController.php',
     'App\\Http\\Controllers\\Manager\\TransactionController' => $baseDir . '/app/Http/Controllers/Manager/TransactionController.php',
     'App\\Http\\Controllers\\MenuController' => $baseDir . '/app/Http/Controllers/MenuController.php',
@@ -27,7 +38,7 @@ return array(
     'App\\Http\\Controllers\\ReviewController' => $baseDir . '/app/Http/Controllers/ReviewController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\IsAdmin' => $baseDir . '/app/Http/Middleware/IsAdmin.php',
-    'App\\Http\\Middleware\\SetLocale' => $baseDir . '/app/Http/Middleware/SetLocale.php',
+    'App\\Http\\Middleware\\LocaleMiddleware' => $baseDir . '/app/Http/Middleware/LocaleMiddleware.php',
     'App\\Models\\Customer' => $baseDir . '/app/Models/Customer.php',
     'App\\Models\\CustomerOffers' => $baseDir . '/app/Models/CustomerOffers.php',
     'App\\Models\\Ingredient' => $baseDir . '/app/Models/Ingredient.php',

@@ -1,0 +1,25 @@
+{
+    "name": "aitor24/laralang",
+    "description": "This package let you translate strings from any language to another in laravel 5.X",
+    "type": "translations",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aitor Riba",
+            "email": "1aitorribaarchilla@gmail.com",
+			"homepage": "https://aitorriba.com/",
+			"role": "author"
+        },
+		{
+			"name": "Erik Campobadal",
+            "email": "soc@erik.cat",
+			"homepage": "https://erik.cat/",
+			"role": "developer"
+		}
+    ],
+	"autoload": {
+		"psr-4": {
+			"Aitor24\\Laralang\\": "./src"
+		}
+	}
+}
