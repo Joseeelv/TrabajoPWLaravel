@@ -73,7 +73,23 @@
                 <a href="{{ $url }}" class="menu-link">{{ $label }}</a>
             @endforeach
         @endauth
+        @if ($userType === 'customer')
+            <div id="kebabito-container">
+                <img id="kebabito-image" src="{{ asset('assets/images/logo/DKS.png') }}" alt="Kebabito image">
+                @if(session()->has('points'))
+                    <span>{{ session('points') }}</span>
+                @endif
+            </div>
+            @php    
+            $img = $user->img_src ?? 'default.jpg';
+            $imagePath = public_path("assets/images/perfiles/$img");
+            $imageUrl = file_exists($imagePath)
+                ? asset("assets/images/perfiles/$img")
+                : asset("assets/images/perfiles/default.jpg");
+        @endphp
 
+        <img id="profile-image" src="{{ $imageUrl }}" alt="Profile Image">
+        @endif
         <div id="lang-selector" style="position: relative;">
             <button id="lang-btn" style="background: none; border: none; cursor: pointer;">
                 <img src="{{ asset('assets/images/flags/traduccion.png') }}" alt="Language Selector" style="width: 30px; height: 30px;">
