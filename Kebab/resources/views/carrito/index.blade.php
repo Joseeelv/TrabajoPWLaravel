@@ -8,14 +8,14 @@
     <div class="container">
         <h2>{{ __('messages.Ofertas activas') }}:</h2>
         @foreach($ofertasActivas as $oferta)
-            <ul><li>{{ $oferta['of_name'] }}</li></ul>
+            <ul><li>{{ __('messages.' . $oferta['of_name']) }}</li></ul>
         @endforeach
 
         <h2>{{ __('messages.Productos en el carrito') }}:</h2>
         @if (!empty($compra))
             <ul>
                 @foreach($compra as $p)
-                    <li><strong>{{ $p['nombre'] }}</strong> - 
+                    <li><strong>{{ __('messages.' . $p['nombre']) }}</strong> - 
                         {{ __('messages.Precio') }}: 
                         @if ($p['precio_final'] < $p['precio'] * $p['cantidad'])
                             <span style="text-decoration: line-through; color: red;">
@@ -42,7 +42,7 @@
             <form action="{{ route('carrito.confirmar') }}" method="POST">
                 @csrf
                 {{ __('messages.Precio total') }}: {{ formatCurrency($v_total) }}
-                <input type="submit" value="{{ __('Confirmar') }}" />
+                <input type="submit" value="{{ __('messages.Confirmar') }}" />
             </form>
         @else
             <p>{{ __('messages.Tu carrito está vacío.') }}</p>

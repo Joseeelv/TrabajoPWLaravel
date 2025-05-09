@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -24,7 +23,6 @@ class OfertaController extends Controller
         $user = Auth::user();
         $customer = Customer::where('user_id', $user->user_id)->first();
 
-
         $offer = Offers::findOrFail($offerId);
         $alreadyActivated = DB::table('CUSTOMERS_OFFERS')
                               ->where('user_id', $user->user_id)
@@ -32,7 +30,7 @@ class OfertaController extends Controller
                               ->exists();
 
         if ($alreadyActivated) {
-            return redirect()->back()->with('message', 'La oferta ya está activada.');
+            return redirect()->back()->with('message', __('messages.offer_already_activated'));
         }
 
         if ($customer->points >= $offer->cost) {
@@ -43,12 +41,11 @@ class OfertaController extends Controller
             ]);
 
             $customer->points -= $offer->cost;
-            $user->save();
             $customer->save();
             session(['points' => $customer->points]);
-            return redirect()->back()->with('message', 'Oferta activada correctamente.');
+            return redirect()->back()->with('message', __('messages.offer_activated'));
         } else {
-            return redirect()->back()->with('message', 'No tienes suficientes puntos para activar esta oferta.');
+            return redirect()->back()->with('message', __('messages.not_enough_points'));
         }
     }
 }
