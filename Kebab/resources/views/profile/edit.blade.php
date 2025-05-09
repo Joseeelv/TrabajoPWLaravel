@@ -2,7 +2,7 @@
 
 <head>
     @section('header')
-    <title>Modificar Perfil</title>
+    <title>{{ __('messages.Modificar Perfil') }}</title>
     <link rel="icon" href="{{ asset('assets/images/logo/DKS.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/perfil.css') }}">
@@ -23,7 +23,8 @@ $image_url = file_exists($path)
 ? asset("assets/images/perfiles/{$image}")
 : asset("assets/images/perfiles/default.jpg");
 @endphp
-<h1>Modificar Perfil</h1>
+
+<h1>{{ __('Modificar Perfil') }}</h1>
 
 @if(session('success'))
 <p class="success">{{ session('success') }}</p>
@@ -42,46 +43,46 @@ $image_url = file_exists($path)
 
     @if(Auth::user()->user_type === 'customer')
     <div class="form-group">
-        <label for="email">Nuevo Email:</label>
+        <label for="email">{{ __('messages.Nuevo Email:') }}</label>
         <input type="email" id="email" name="email" placeholder="{{ old('email', Auth::user()->email) }}">
     </div>
     @endif
 
     <div>
-        <input type="password" name="password" id="password" placeholder="Contraseña">
+        <input type="password" name="password" id="password" placeholder="{{ __('Contraseña') }}">
         <!-- Barra de fortaleza -->
         <div class="password-strength-meter">
             <div class="password-strength-meter-fill"></div>
         </div>
         <ul class="password-checklist">
-            <li id="length">Al menos 8 caracteres de longitud</li>
-            <li id="uppercase">Contiene letra mayúscula</li>
-            <li id="lowercase">Contiene letra minúscula</li>
-            <li id="number">Contiene número</li>
-            <li id="special">Contiene carácter especial</li>
+            <li id="length">{{ __('messages.Al menos 8 caracteres de longitud') }}</li>
+            <li id="uppercase">{{ __('messages.Contiene letra mayúscula') }}</li>
+            <li id="lowercase">{{ __('messages.Contiene letra minúscula') }}</li>
+            <li id="number">{{ __('messages.Contiene número') }}</li>
+            <li id="special">{{ __('messages.Contiene carácter especial') }}</li>
         </ul>
     </div>
 
     <div class="form-group">
-        <label for="confirm_password">Confirmar Contraseña:</label>
-        <input type="password" id="confirm_password" name="password_confirmation" placeholder="Confirmar contraseña">
+        <label for="confirm_password">{{ __('messages.Confirmar Contraseña:') }}</label>
+        <input type="password" id="confirm_password" name="password_confirmation" placeholder="{{ __('messages.Confirmar contraseña') }}">
     </div>
 
     @if(Auth::user()->user_type === 'customer')
     <div class="form-group">
-        <label for="address">Nueva dirección:</label>
+        <label for="address">{{ __('messages.Nueva dirección:') }}</label>
         <input type="text" id="address" name="address" placeholder="{{ old('address', Auth::user()->customer->customer_address ?? '') }}">
     </div>
     @endif
 
     <div class="form-group">
-        <label for="foto">Nueva foto de perfil:</label>
+        <label for="foto">{{ __('messages.Nueva foto de perfil:') }}</label>
         <input type="file" id="foto" name="foto" accept="image/*">
         <div style="text-align: center;">
-            <img id="previewImage" src="{{ $image_url }} " alt="Vista previa"
+            <img id="previewImage" src="{{ $image_url }} " alt="{{ __('messages.Vista previa') }}"
                 style="{{ Auth::user()->img_src ? 'width: 200px; height: auto;' : 'display: none;' }}">
         </div>
     </div>
-    <button type="submit">Actualizar Perfil</button>
+    <button type="submit">{{ __('messages.Actualizar Perfil') }}</button>
 </form>
 @endsection

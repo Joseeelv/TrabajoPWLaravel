@@ -48,10 +48,10 @@
         <form id="form_add_carrito" action="{{ url('add-to-cart') }}" method="POST">
             @csrf
             <input type="hidden" name="product_id" value="{{ $producto->product_id }}">
-            <input type="hidden" name="product_name" value="{{ __('messages.' .$producto->product_name) }}">
-            <input type="hidden" name="product_price" value="{{ __('messages.' . $producto->product_price) }}">
+            <input type="hidden" name="product_name" value="{{ $producto->product_name }}">
+            <input type="hidden" name="product_price" value="{{ $producto->product_price }}">
             <input type="hidden" id="ingr_list_info" name="ingr_list_info">
-            <input type="hidden" name="category" value="{{ __('messages.' . $producto->category) }}">
+            <input type="hidden" name="category" value="{{ $producto->category}}">
             <button id="add_to_carrito" type="submit">{{ __('messages.Añadir a carrito') }}</button>
         </form>
 
