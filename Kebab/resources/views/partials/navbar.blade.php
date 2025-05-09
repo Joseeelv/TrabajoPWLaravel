@@ -92,15 +92,15 @@
         @endif
         <div id="lang-selector" style="position: relative;">
             <button id="lang-btn" style="background: none; border: none; cursor: pointer;">
-                <img src="{{ asset('assets/images/flags/traduccion.png') }}" alt="Language Selector" style="width: 30px; height: 30px;">
+            <img src="{{ asset('assets/images/flags/traduccion.png') }}" alt="Language Selector" style="width: 30px; height: 30px;">
             </button>
             <div id="lang-dropdown" style="display: none; position: absolute; top: 40px; right: 0; background: white; border: 1px solid #ccc; border-radius: 5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); z-index: 1000;">
-                <a href="{{ route('cambiar.idioma', ['locale' => 'es']) }}" style="display: flex; align-items: center; padding: 10px; text-decoration: none; color: black;">
-                    <img src="{{ asset('assets/images/flags/es.webp') }}" alt="Español" style="width: 20px; height: 20px; margin-right: 10px;"> Español
-                </a>
-                <a href="{{ route('cambiar.idioma', ['locale' => 'tr']) }}" style="display: flex; align-items: center; padding: 10px; text-decoration: none; color: black;">
-                    <img src="{{ asset('assets/images/flags/tr.webp') }}" alt="Türkçe" style="width: 20px; height: 20px; margin-right: 10px;"> Türkçe
-                </a>
+            <a href="{{ route('cambiar.idioma', ['locale' => 'es']) }}" style="display: flex; align-items: center; padding: 10px; text-decoration: none; color: {{ $locale === 'es' ? 'blue' : 'black' }};">
+                <img src="{{ asset('assets/images/flags/es.webp') }}" alt="Español" style="width: 20px; height: 20px; margin-right: 10px;"> Español
+            </a>
+            <a href="{{ route('cambiar.idioma', ['locale' => 'tr']) }}" style="display: flex; align-items: center; padding: 10px; text-decoration: none; color: {{ $locale === 'tr' ? 'blue' : 'black' }};">
+                <img src="{{ asset('assets/images/flags/tr.webp') }}" alt="Türkçe" style="width: 20px; height: 20px; margin-right: 10px;"> Türkçe
+            </a>
             </div>
         </div>
     </nav>
