@@ -19,10 +19,10 @@
                         {{ __('messages.Precio') }}: 
                         @if ($p['precio_final'] < $p['precio'] * $p['cantidad'])
                             <span style="text-decoration: line-through; color: red;">
-                                {{ number_format($p['precio'] * $p['cantidad'], 2) }} €
+                                {{ formatCurrency($p['precio'] * $p['cantidad']) }}
                             </span>
                         @endif
-                        {{ number_format($p['precio_final'], 2) }} €
+                        {{ formatCurrency($p['precio_final']) }}
 
                         @if (!empty($p['lista_ingredientes']))
                             <ul>
@@ -41,7 +41,7 @@
 
             <form action="{{ route('carrito.confirmar') }}" method="POST">
                 @csrf
-                {{ __('messages.Precio total') }}: {{ number_format($v_total, 2) }} €
+                {{ __('messages.Precio total') }}: {{ formatCurrency($v_total) }}
                 <input type="submit" value="{{ __('Confirmar') }}" />
             </form>
         @else
@@ -54,3 +54,13 @@
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/carrito.css') }}">
 @endpush
+
+@php
+function formatCurrency($amount) {
+    $locale = app()->getLocale();
+    $currencySymbol = $locale === 'tr' ? '₺' : '€';
+    $conversionRate = $locale === 'tr' ? 20 : 1; // Ejemplo: 1€ = 20₺
+    $convertedAmount = $amount * $conversionRate;
+    return number_format($convertedAmount, 2) . ' ' . $currencySymbol;
+}
+@endphp

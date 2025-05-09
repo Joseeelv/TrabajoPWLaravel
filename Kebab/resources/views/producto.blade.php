@@ -22,7 +22,8 @@
         </div>
 
         <p>{{ __('messages.' . $producto->product_name )}}</p>
-        <p>{{ __('messages.' . $producto->product_price )}}€</p>
+        
+        <p>{{ formatCurrency($producto->product_price) }}</p>
 
         <div class="allergens-container">
             @if (!empty($alergenos))
@@ -79,3 +80,13 @@
     </div>
 </main>
 @endsection
+
+@php
+function formatCurrency($amount) {
+    $locale = app()->getLocale();
+    $currencySymbol = $locale === 'tr' ? '₺' : '€';
+    $conversionRate = $locale === 'tr' ? 20 : 1; // Ejemplo: 1€ = 20₺
+    $convertedAmount = $amount * $conversionRate;
+    return number_format($convertedAmount, 2) . ' ' . $currencySymbol;
+}
+@endphp
