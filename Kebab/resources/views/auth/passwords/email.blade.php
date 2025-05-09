@@ -5,6 +5,7 @@
     <link rel="icon" href="{{ asset('assets/images/logo/DKS.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/manager.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/register.css') }}">
     @show
 </head>
 @section('content')
@@ -17,5 +18,5 @@
         <label for="email">Correo electrónico:</label>
         <input type="email" name="email" required>
         <button type="submit">Enviar enlace de recuperación</button>
-    </form>
+      </form>
 @endsection

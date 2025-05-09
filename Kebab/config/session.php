@@ -40,5 +40,7 @@ return [
     'partitioned' => env('SESSION_PARTITIONED_COOKIE', false),
 
     'driver' => 'file',
+
+    'duration' => 120, // minutos
     
 ];

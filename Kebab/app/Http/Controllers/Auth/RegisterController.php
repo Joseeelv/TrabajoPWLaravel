@@ -83,6 +83,7 @@ class RegisterController extends Controller
                 'customer_address' => $request->address,
                 'customer_name'    => $request->username,
                 'customer_email'   => $request->email,
+                'points'         =>  100, // por defecto
             ]);
         }
 

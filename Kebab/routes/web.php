@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Dashboard;
+// Removed unused Dashboard import
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MenuController;
@@ -27,8 +27,6 @@ Route::get('/', function () {
 // Rutas de menú y contacto
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 Route::view('/contact', 'contact')->name('contact');
-
-
 
 // Rutas de registro y login
 Route::get('/register', [RegisterController::class, 'create'])->name('register');
@@ -116,3 +114,6 @@ Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEm
 
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+
+
