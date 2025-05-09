@@ -1,5 +1,6 @@
 <?php
 return [
+  'Döner Kebab Society' => 'Döner Kebab Society',
   'inicio' => 'Inicio',
   'empleados' => 'Empleados',
   'contratar' => 'Contratar',
@@ -106,4 +107,8 @@ return [
   'Confirmar' => 'Confirmar',
   'Tu carrito está vacío.' => 'Tu carrito está vacío.',
   'Precio total' => 'Precio total',
+  'Únete a la sociedad' => 'Únete a la sociedad',
+  'Kebab 1' => 'Kebab 1',
+  'Kebab 2' => 'Kebab 2',
+  'Kebab 3' => 'Kebab 3',
 ];
