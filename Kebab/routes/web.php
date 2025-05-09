@@ -8,6 +8,7 @@ use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\ConfirmarCarritoController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\OfertaController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -78,6 +79,11 @@ Route::middleware(LocaleMiddleware::class)->group(function () {
         Route::get('/manager/reviews', [ReviewController::class, 'managerIndex'])->name('manager.reviews.index');
     });
 
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/pedidos', [OrderController::class, 'index'])->name('orders.index');
+    });
+
+    
     // Admin Panel
     Route::middleware(['auth'])->group(function () {
         Route::get('/adminPanel', function () {
