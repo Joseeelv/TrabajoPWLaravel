@@ -1,16 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Producto')
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+@section('title', __('messages.Producto'))
 
-    <link rel="icon" href="../assets/images/logo/DKS.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../assets/css/styles.css">
-    <link rel="stylesheet" href="../assets/css/producto.css">
-    <title>KEBAB SOCIETY - CARTA</title>
-    <script src="../assets/js/producto.js"></script>
-</head>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/producto.css') }}">
+@endpush
 
 @section('content')
 <main>
@@ -20,43 +15,43 @@
                 $imgPath = public_path('assets/images/productos/' . basename($producto->img_src));
             @endphp
             @if (file_exists($imgPath))
-                <img src="{{ asset('assets/images/productos/' . basename($producto->img_src)) }}" alt="{{ $producto->product_name }}">
+                <img src="{{ asset('assets/images/productos/' . basename($producto->img_src)) }}" alt="{{ __('messages.' . $producto->product_name) }}">
             @else
-                <p>Imagen no disponible</p>
+                <p>{{ __('messages.Imagen no disponible') }}</p>
             @endif
         </div>
 
-        <p>{{ $producto->product_name }}</p>
-        <p>{{ $producto->product_price }} €</p>
+        <p>{{ __('messages.' . $producto->product_name )}}</p>
+        <p>{{ __('messages.' . $producto->product_price )}}€</p>
 
         <div class="allergens-container">
             @if (!empty($alergenos))
-                <p>Alérgenos:</p>
+                <p>{{ __('messages.Alérgenos:') }}</p>
                 <div class="allergens-list">
                     @foreach ($alergenos as $alergeno)
                         @php
                             $alergenoPath = public_path('assets/images/alergenos/' . basename($alergeno));
                         @endphp
                         @if (file_exists($alergenoPath))
-                            <img src="{{ asset('assets/images/alergenos/' . basename($alergeno)) }}" alt="Alergeno" class="allergen-img">
+                            <img src="{{ asset('assets/images/alergenos/' . basename($alergeno)) }}" alt="{{ __('messages.Alergeno') }}" class="allergen-img">
                         @else
-                            <p>Imagen no disponible</p>
+                            <p>{{ __('messages.Imagen no disponible') }}</p>
                         @endif
                     @endforeach
                 </div>
             @else
-                <p>No contiene alérgenos.</p>
+                <p>{{ __('messages.No contiene alérgenos.') }}</p>
             @endif
         </div>
 
         <form id="form_add_carrito" action="{{ url('add-to-cart') }}" method="POST">
             @csrf
             <input type="hidden" name="product_id" value="{{ $producto->product_id }}">
-            <input type="hidden" name="product_name" value="{{ $producto->product_name }}">
-            <input type="hidden" name="product_price" value="{{ $producto->product_price }}">
+            <input type="hidden" name="product_name" value="{{ __('messages.' .$producto->product_name) }}">
+            <input type="hidden" name="product_price" value="{{ __('messages.' . $producto->product_price) }}">
             <input type="hidden" id="ingr_list_info" name="ingr_list_info">
-            <input type="hidden" name="category" value="{{ $producto->category }}">
-            <button id="add_to_carrito" type="submit">Añadir a carrito</button>
+            <input type="hidden" name="category" value="{{ __('messages.' . $producto->category) }}">
+            <button id="add_to_carrito" type="submit">{{ __('messages.Añadir a carrito') }}</button>
         </form>
 
         <div class="ingredients-container">
@@ -68,10 +63,10 @@
                     @if (file_exists($imgPath))
                         <img src="{{ asset('assets/images/ingredientes/' . basename($ingrediente->img_src)) }}" alt="{{ $ingrediente->ingredient_name }}">
                     @else
-                        <p>Imagen no disponible</p>
+                        <p>{{ __('messages.Imagen no disponible') }}</p>
                     @endif
 
-                    <p class="ingr-nombre">{{ $ingrediente->ingredient_name }}</p>
+                    <p class="ingr-nombre">{{ __('messages.' . $ingrediente->ingredient_name)}}</p>
                     <div class="ingr-buttons">
                         <button class="ingr_btn">-</button>
                         <span class="ingr-cant">1</span>
