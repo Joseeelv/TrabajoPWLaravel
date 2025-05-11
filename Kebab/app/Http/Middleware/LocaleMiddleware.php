@@ -12,14 +12,8 @@ class LocaleMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        // Primero, revisa si hay un idioma en la URL
-        $locale = $request->segment(1);
-
-        if ($locale && in_array($locale, ['es', 'tr'])) {
-            App::setLocale($locale);
-            Session::put('locale', $locale); // Guarda para futuras peticiones
-            URL::defaults(['locale' => $locale]);
-        } elseif (Session::has('locale')) {
+        
+        if (Session::has('locale')) {
             $locale = Session::get('locale');
             App::setLocale($locale);
             URL::defaults(['locale' => $locale]);
