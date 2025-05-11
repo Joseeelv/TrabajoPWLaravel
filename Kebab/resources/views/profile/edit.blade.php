@@ -24,7 +24,7 @@ $image_url = file_exists($path)
 : asset("assets/images/perfiles/default.jpg");
 @endphp
 
-<h1>{{ __('Modificar Perfil') }}</h1>
+<h1>{{ __('messages.Modificar Perfil') }}</h1>
 
 @if(session('success'))
 <p class="success">{{ session('success') }}</p>
@@ -49,7 +49,7 @@ $image_url = file_exists($path)
     @endif
 
     <div>
-        <input type="password" name="password" id="password" placeholder="{{ __('Contraseña') }}">
+        <input type="password" name="password" id="password" placeholder="{{ __('messages.Contraseña') }}">
         <!-- Barra de fortaleza -->
         <div class="password-strength-meter">
             <div class="password-strength-meter-fill"></div>
