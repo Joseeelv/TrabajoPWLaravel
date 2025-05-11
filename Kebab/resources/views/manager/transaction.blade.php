@@ -1,19 +1,19 @@
 @extends('layouts.app') <!-- Usa tu layout base -->
 
 @section('content')
-    <h1>Resumen de Transacciones</h1>
+    <h1>{{ __('messages.Resumen de Transacciones') }}</h1>
 
     <table border='1'>
         <tr>
-            <th>Fecha</th>
-            <th>Tipo</th>
-            <th>Balance (€)</th>
+            <th>{{ __('messages.Fecha') }}</th>
+            <th>{{ __('messages.Tipo') }}</th>
+            <th>{{ __('messages.Balance') }}</th>
         </tr>
         <tr style="font-weight: bold;">
-            <td>Total</td>
+            <td>{{ __('messages.Total') }}</td>
             <td>
-                Ventas: {{ formatCurrency($total_ventas) }} | 
-                Compras: {{ formatCurrency($total_compras) }}
+                {{ __('messages.Ventas') }}: {{ formatCurrency($total_ventas) }} |
+                {{ __('messages.Compras') }}: {{ formatCurrency($total_compras) }}
             </td>
             <td>{{ formatCurrency($balance_final) }}</td>
         </tr>
@@ -21,12 +21,12 @@
         @forelse ($transactions as $row)
             <tr style="background-color: {{ $row->transaction_type === 'Compra' ? '#FDE3E3' : '#E3FDE3' }}">
                 <td>{{ $row->transaction_date }}</td>
-                <td>{{ $row->transaction_type }}</td>
+                <td>{{ __('messages.' . $row->transaction_type) }}</td>
                 <td>{{ formatCurrency($row->balance) }}</td>
             </tr>
         @empty
             <tr>
-                <td colspan="3">No hay transacciones registradas.</td>
+                <td colspan="3">{{ __('messages.No hay transacciones registradas.') }}</td>
             </tr>
         @endforelse
     </table>
@@ -35,6 +35,7 @@
 @push('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/reabastecer.css') }}">
 @endpush
+
 
 @php
 function formatCurrency($amount) {
