@@ -100,7 +100,7 @@ class RegisterController extends Controller
             return back()->with('success_message', '¡Usuario registrado correctamente!');
         }
         else{
-            return redirect()->route('login')->with('success_message', '¡Usuario registrado correctamente!');
+            return redirect()->back();
         }
     }
 }

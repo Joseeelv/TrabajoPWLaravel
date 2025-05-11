@@ -96,7 +96,7 @@ Route::middleware(LocaleMiddleware::class)->group(function () {
                 'inactiveManagers' => $inactiveManagers,
             ]);
         })->name('admin.employees.index');
-        Route::post('/adminPanel/contratar', [EmployeeController::class, 'hire'])->name('admin.employees.hire');
+        Route::get('/adminPanel/contratar', [EmployeeController::class, 'hire'])->name('admin.employees.hire');
         Route::post('/adminPanel/recontratar', [EmployeeController::class, 'hire'])->name('admin.employees.rehire');
         Route::post('/adminPanel/despedir', [EmployeeController::class, 'fire'])->name('admin.employees.fire');
     });

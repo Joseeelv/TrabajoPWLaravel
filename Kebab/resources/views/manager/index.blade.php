@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <head>
     @section('header')
-    <title>Manager Panel</title>
+    <title>{{ __('messages.Manager Panel') }}</title>
     <link rel="icon" href="{{ asset('assets/images/logo/DKS.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/manager.css') }}">
@@ -17,30 +17,28 @@
     @endphp
 
     <main>
-        <h1>Bienvenido, {{ Auth::user()->username }}.</h1>
+        <h1>{{ __('messages.Bienvenido, :user.', ['user' => Auth::user()->username]) }}</h1>
 
-        <img id="profile-image" src="{{ $image_url }}" alt="ImagenUser">
+        <img id="profile-image" src="{{ $image_url }}" alt="{{ __('messages.ImagenUser') }}">
 
-        <h2>¿Qué desea hacer?</h2>
+        <h2>{{ __('messages.¿Qué desea hacer?') }}</h2>
 
         <div id="manager-options">
             <button class="btn btn-register" onclick="window.location.href='{{ url('/manager/replenishment') }}'">
-                Reabastecer productos
+                {{ __('messages.Reabastecer productos') }}
             </button>
             <button class="btn btn-register" onclick="window.location.href='{{ url('/manager/transactions') }}'">
-                Ver transacciones
+                {{ __('messages.Ver transacciones') }}
             </button>
             <button class="btn btn-register" onclick="window.location.href='{{ url('/manager/reviews') }}'">
-                Gestionar reseñas
+                {{ __('messages.Gestionar reseñas') }}
             </button>
             <button class="btn btn-register" onclick="window.location.href='{{ url('/perfil') }}'">
-                Ver perfil
+                {{ __('messages.Ver perfil') }}
             </button>
-
         </div>
     </main>
 @endsection
-
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/manager.css') }}">

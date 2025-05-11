@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Reseñas')
+@section('title', __('messages.Reseñas'))
 
 @section('header')
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
@@ -9,7 +9,7 @@
 
 @section('content')
     <main class="review-page">
-        <h1>Deja tu reseña</h1>
+        <h1>{{ __('messages.Deja tu reseña') }}</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -24,43 +24,42 @@
         @auth
             <form action="{{ route('reviews.store') }}" method="POST" class="review-form">
                 @csrf
-                <label for="rating">Valoración:</label>
+                <label for="rating">{{ __('messages.Valoración:') }}</label>
                 <div class="star-rating">
                     @for ($i = 5; $i >= 1; $i--)
                         <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" required />
-                        <label for="star{{ $i }}" title="{{ $i }} estrellas">★</label>
+                        <label for="star{{ $i }}" title="{{ $i }} {{ __('messages.estrellas') }}">★</label>
                     @endfor
                 </div>
 
-                <label for="review_text">Comentario:</label>
-                <textarea name="review_text" rows="4" placeholder="Escribe tu opinión..."></textarea>
+                <label for="review_text">{{ __('messages.Comentario:') }}</label>
+                <textarea name="review_text" rows="4" placeholder="{{ __('messages.Escribe tu opinión...') }}"></textarea>
 
-                <button type="submit">Enviar reseña</button>
+                <button type="submit">{{ __('messages.Enviar reseña') }}</button>
             </form>
         @else
-            <p><a href="{{ route('login') }}">Inicia sesión</a> para dejar una reseña.</p>
+            <p><a href="{{ route('login') }}">{{ __('messages.Inicia sesión') }}</a> {{ __('messages.para dejar una reseña.') }}</p>
         @endauth
 
         <hr>
 
-        <h2>Reseñas de otros usuarios</h2>
+        <h2>{{ __('messages.Reseñas de otros usuarios') }}</h2>
         <ul class="review-list">
             @forelse ($reviews as $review)
                 <li class="review-item">
-                    <strong>{{ $review->customer->user->username ?? 'Usuario' }}</strong> -
+                    <strong>{{ $review->customer->user->username ?? __('messages.Usuario') }}</strong> -
                     <span class="rating">⭐ {{ $review->rating }}/5</span>
                     <p>{{ $review->review_text }}</p>
                     <small>{{ $review->review_date }}</small>
                     @if ($review->answer_text)
                     <div class="manager-response">
-                        <strong>Respuesta del encargado:</strong>
+                        <strong>{{ __('messages.Respuesta del encargado:') }}</strong>
                         <p>{{ $review->answer_text }}</p>
                     </div>
                 @endif
                 </li>
-
             @empty
-                <li>No hay reseñas todavía.</li>
+                <li>{{ __('messages.No hay reseñas todavía.') }}</li>
             @endforelse
         </ul>
     </main>
