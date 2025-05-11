@@ -24,7 +24,12 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $allowedDomains = [
-            'gmail.com', 'hotmail.com', 'outlook.com', 'yahoo.com', 'example.com', 'test.com'
+            'gmail.com',
+            'hotmail.com',
+            'outlook.com',
+            'yahoo.com',
+            'example.com',
+            'test.com'
         ];
 
         // Determina el tipo de usuario
@@ -33,12 +38,15 @@ class RegisterController extends Controller
         // Reglas de validación dinámicas
         $rules = [
             'username' => [
-                'required', 'min:3', 'max:20',
+                'required',
+                'min:3',
+                'max:20',
                 'regex:/^[a-zA-Z0-9_]+$/',
                 'unique:users,username'
             ],
             'password' => [
-                'required', 'min:8',
+                'required',
+                'min:8',
                 'regex:/[a-z]/',      // minúscula
                 'regex:/[A-Z]/',      // mayúscula
                 'regex:/\d/',         // número
@@ -51,7 +59,8 @@ class RegisterController extends Controller
         // Solo para customers, email y dirección son obligatorios
         if (!$isManager) {
             $rules['email'] = [
-                'required', 'email',
+                'required',
+                'email',
                 function ($attribute, $value, $fail) use ($allowedDomains) {
                     $domain = substr(strrchr($value, "@"), 1);
                     if (!in_array($domain, $allowedDomains)) {
@@ -70,8 +79,8 @@ class RegisterController extends Controller
         $user = User::create([
             'username'  => $request->username,
             'email'     => $isManager
-                            ? $request->username . '@donerkebab.com'
-                            : $request->email,
+                ? $request->username . '@donerkebab.com'
+                : $request->email,
             'password'  => bcrypt($request->password),
             'user_type' => $request->user_type,
         ]);
@@ -87,20 +96,14 @@ class RegisterController extends Controller
             ]);
         }
 
-        // Si es manager, crea registro en managers
-        if ($user->user_type === 'manager') {
-            Manager::create([
-                'user_id' => $user->user_id,
-                'salary' => 2500, // por defecto    
-                'employee' => 1, // por defecto contratado
-            ]);
-        }
-        
+        // Mensaje de éxito
+        $message = '¡Usuario registrado correctamente!';
+
+        // Verificar la ruta actual y redirigir
         if ($request->is('adminPanel/contratar')) {
-            return back()->with('success_message', '¡Usuario registrado correctamente!');
-        }
-        else{
-            return redirect()->back();
+            return redirect()->back()->with('success_message', __($message));
+        } else {
+            return redirect()->route('login')->with('success_message', __($message));
         }
     }
 }

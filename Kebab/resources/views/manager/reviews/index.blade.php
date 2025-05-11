@@ -1,43 +1,44 @@
 @extends('layouts.app')
-
-@section('title', __('messages.Gestionar Reseñas'))
-
-@section('header')
-<link rel="stylesheet" href="{{ asset('assets/css/review.css') }}">
-@endsection
+<head>
+  @section('header')
+  <title>{{ __('messages.Cambiar Contraseña') }}</title>
+  <link rel="icon" href="{{ asset('assets/images/logo/DKS.ico') }}" type="image/x-icon">
+  <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/manager.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/register.css') }}">
+  <script src="{{ asset('assets/js/password-strength-meter.js') }}"></script>
+  @show
+</head>
 
 @section('content')
-<main class="review-page">
-    <h1>{{ __('messages.Reseñas de Clientes') }}</h1>
+<h2>{{ __('messages.Restablecer contraseña') }}</h2>
+<form method="POST" action="{{ route('password.update') }}">
+  @csrf
+  <input type="hidden" name="token" value="{{ $token }}">
+  <input type="hidden" name="email" value="{{ request('email', $email) }}">
+  
+  <div>
+    <input type="password" name="password" id="password" placeholder="{{ __('messages.Contraseña') }}" required>
+    <input type="password" name="password_confirmation" placeholder="{{ __('messages.Confirmar contraseña') }}" required>
+    @error('password') <p class="error">{{ $message }}</p> @enderror
 
-    @if (session('mensaje'))
-    <div class="alert alert-success">{{ session('mensaje') }}</div>
-    @endif
-
-    <ul class="review-list">
-        @forelse ($reviews as $review)
-        <li class="review-item">
-            <strong>{{ $review->customer->user->username ?? __('messages.Usuario Anónimo') }}</strong> -
-            <span class="rating">⭐ {{ $review->rating }}/5</span>
-            <p>{{ $review->review_text }}</p>
-            <small>{{ $review->review_date }}</small>
-
-            @if ($review->answer_text)
-            <div class="manager-response">
-                <strong>{{ __('messages.Respuesta del Manager:') }}</strong>
-                <p>{{ $review->answer_text }}</p>
-            </div>
-            @else
-            <a href="{{ route('manager.reviews.respond.form', $review->review_id) }}" class="button-link">{{ __('messages.Responder') }}</a>
-            @endif
-        </li>
-        @empty
-        <li>{{ __('messages.No hay reseñas todavía.') }}</li>
-        @endforelse
+    <div class="password-strength-meter">
+      <div class="password-strength-meter-fill"></div>
+    </div>
+    <ul class="password-checklist">
+      <li id="length">{{ __('messages.Al menos 8 caracteres') }}</li>
+      <li id="uppercase">{{ __('messages.Una letra mayúscula') }}</li>
+      <li id="lowercase">{{ __('messages.Una letra minúscula') }}</li>
+      <li id="number">{{ __('messages.Un número') }}</li>
+      <li id="special">{{ __('messages.Un carácter especial') }}</li>
     </ul>
-</main>
+  </div>
+  <div style="text-align: center;">
+    <button type="submit">{{ __('messages.Actualizar Contraseña') }}</button>
+  </div>
+</form>
 @endsection
 
-@push('styles')
-<link rel="stylesheet" href="{{ asset('assets/css/reviews.css') }}">
+@push('scripts')
+<script src="{{ asset('assets/js/password-strength-meter.js') }}"></script>
 @endpush
