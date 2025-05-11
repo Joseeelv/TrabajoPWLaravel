@@ -27,7 +27,7 @@
                 <tr>
                     <td><img src="{{ asset('assets/images/ingredientes/' . $ing->img_src) }}" alt="{{ $ing->ingredient_name }}"></td>
                     <td>{{ __('messages.' . $ing->ingredient_name) }}</td>
-                    <td>{{ $ing->cost }} €</td>
+                    <td>{{ formatCurrency($ing->cost) }}</td>
                     <td>{{ $ing->stock }}</td>
                     <td>
                         <form method="POST" action="{{ route('manager.replenishment.store') }}">
@@ -65,7 +65,8 @@
                 <tr>
                     <td><img src="{{ asset('assets/images/productos/' . $prod->img_src) }}" alt="{{ __('messages.'. $prod->product_name) }}"></td>
                     <td>{{ __('messages.'. $prod->product_name) }}</td>
-                    <td>{{ $prod->cost }} €</td>
+                    <td>{{ formatCurrency($prod->cost) }}</td>
+
                     <td>{{ $prod->stock }}</td>
                     <td>
                         <form method="POST" action="{{ route('manager.replenishment.store') }}">
@@ -89,3 +90,13 @@
     </div>
 </div>
 @endsection
+
+@php
+function formatCurrency($amount) {
+    $locale = app()->getLocale();
+    $currencySymbol = $locale === 'tr' ? '₺' : '€';
+    $conversionRate = $locale === 'tr' ? 20 : 1; // Ejemplo: 1€ = 20₺
+    $convertedAmount = $amount * $conversionRate;
+    return number_format($convertedAmount, 2) . ' ' . $currencySymbol;
+}
+@endphp

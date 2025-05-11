@@ -12,17 +12,17 @@
         <tr style="font-weight: bold;">
             <td>Total</td>
             <td>
-                Ventas: {{ number_format($total_ventas, 2) }}€ | 
-                Compras: {{ number_format($total_compras, 2) }}€
+                Ventas: {{ formatCurrency($total_ventas) }} | 
+                Compras: {{ formatCurrency($total_compras) }}
             </td>
-            <td>{{ number_format($balance_final, 2) }}€</td>
+            <td>{{ formatCurrency($balance_final) }}</td>
         </tr>
 
         @forelse ($transactions as $row)
             <tr style="background-color: {{ $row->transaction_type === 'Compra' ? '#FDE3E3' : '#E3FDE3' }}">
                 <td>{{ $row->transaction_date }}</td>
                 <td>{{ $row->transaction_type }}</td>
-                <td>{{ number_format($row->balance, 2) }}€</td>
+                <td>{{ formatCurrency($row->balance) }}</td>
             </tr>
         @empty
             <tr>
@@ -35,3 +35,13 @@
 @push('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/reabastecer.css') }}">
 @endpush
+
+@php
+function formatCurrency($amount) {
+    $locale = app()->getLocale();
+    $currencySymbol = $locale === 'tr' ? '₺' : '€';
+    $conversionRate = $locale === 'tr' ? 20 : 1; // Ejemplo: 1€ = 20₺
+    $convertedAmount = $amount * $conversionRate;
+    return number_format($convertedAmount, 2) . ' ' . $currencySymbol;
+}
+@endphp
