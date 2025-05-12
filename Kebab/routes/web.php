@@ -20,8 +20,13 @@ use App\Http\Controllers\Manager\ReplenishmentController;
 use App\Http\Controllers\Manager\TransactionController;
 use App\Http\Controllers\CarritoCheckController;
 
-// Middleware de idioma
+
 Route::middleware(LocaleMiddleware::class)->group(function () {
+
+    // Todas las rutas de la aplicación
+
+
+
     // Página de inicio
     Route::get('/', function () {
         return view('index');
@@ -55,27 +60,27 @@ Route::middleware(LocaleMiddleware::class)->group(function () {
     })->name('pedido.confirmado');
     
 
-        // Rutas para ofertas y productos
-        Route::get('/ofertas', [OfertaController::class, 'index'])->name('ofertas');
-        Route::post('/ofertas/activar', [OfertaController::class, 'activate'])->name('ofertas.activar');
-        Route::get('/producto', [ProductoController::class, 'mostrar']);
-        Route::post('/producto', [ProductoController::class, 'mostrar'])->name('producto');
-        Route::post('/add-to-cart', [CarritoController::class, 'agregar']);
-        Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews');
-        Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
-
-        // Perfil
-        Route::get('/perfil', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::post('/perfil', [ProfileController::class, 'update'])->name('profile.update');
-
-        // Manager
-        Route::get('/manager', function () {
-            return view('manager.index');
-        })->name('manager.index');
+    // Rutas para ofertas y productos
+    Route::get('/ofertas', [OfertaController::class, 'index'])->name('ofertas');
+    Route::post('/ofertas/activar', [OfertaController::class, 'activate'])->name('ofertas.activar');
+    Route::get('/producto', [ProductoController::class, 'mostrar']);
+    Route::post('/producto', [ProductoController::class, 'mostrar'])->name('producto');
+    Route::post('/add-to-cart', [CarritoController::class, 'agregar']);
+    Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews');
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+    // Perfil
+    Route::get('/perfil', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/perfil', [ProfileController::class, 'update'])->name('profile.update');
+    
+    // Manager
+    Route::get('/manager', function () {
+        return view('manager.index');
+    })->name('manager.index');
         Route::get('/manager/replenishment', [ReplenishmentController::class, 'index'])->name('manager.replenishment');
         Route::post('/manager/replenishment', [ReplenishmentController::class, 'store'])->name('manager.replenishment.store');
         Route::get('/manager/transactions', [TransactionController::class, 'index'])->name('manager.transaction');
         Route::get('/manager/reviews', [ReviewController::class, 'managerIndex'])->name('manager.reviews.index');
+        Route::post('/manager/reviews/{id}/respond', [ReviewController::class, 'respond'])->name('manager.reviews.respond');
     });
 
     Route::middleware(['auth'])->group(function () {

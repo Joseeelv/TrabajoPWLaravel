@@ -47,8 +47,9 @@ class ReviewController extends Controller
 
     public function managerIndex()
     {
-        $reviews = Review::with(['customer.user'])->orderByDesc('review_date')->get();
-        return view('manager.reviews.index', compact('reviews'));
+    $reviews = Review::with(['customer.user'])->orderByDesc('review_date')->get();
+    $token = csrf_token(); // o cualquier otro valor necesario
+    return view('manager.reviews.index', compact('reviews', 'token'));
     }
 
     public function respondForm($id)
@@ -66,7 +67,7 @@ class ReviewController extends Controller
         $review = Review::findOrFail($id);
         $review->answer_text = $request->answer_text;
 
-        // ✅ Esto debe ser un número, no una cadena
+        //Esto debe ser un número, no una cadena
         $review->manager_id = Auth::user()->id;
 
         $review->save();
