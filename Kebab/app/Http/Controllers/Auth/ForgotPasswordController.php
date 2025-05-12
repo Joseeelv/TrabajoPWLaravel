@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -14,7 +15,18 @@ class ForgotPasswordController extends Controller
 
     public function sendResetLinkEmail(Request $request)
     {
-        $request->validate(['email' => 'required|email']);
+        $request->validate([
+            'email' => [
+                'required',
+                'email',
+                'exists:users,email', // Verifica que el correo exista en la tabla users
+                function ($attribute, $value, $fail) {
+                    if (str_ends_with($value, '@donerkebab.com')) {
+                        $fail(__('Emails from the donerkebab.com domain cannot be used for password reset.'));
+                    }
+                },
+            ],
+        ]);
 
         $status = Password::sendResetLink(
             $request->only('email')

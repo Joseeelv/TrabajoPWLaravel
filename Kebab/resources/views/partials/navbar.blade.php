@@ -52,7 +52,7 @@
 @endphp
 
 <header>
-    <nav class="navbar">
+    <nav class="navbar custom-navbar">
         <img id="logo" src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo DKS">
 
         @auth
@@ -91,7 +91,7 @@
         <img id="profile-image" src="{{ $imageUrl }}" alt="Profile Image">
         @endif
         <div id="lang-selector" style="position: relative;">
-            <button id="lang-btn" style="background: none; border: none; cursor: pointer;">
+            <button id="lang-btn" style="background: transparent; border: none; cursor: pointer;">
                 <img src="{{ asset('assets/images/flags/traduccion.png') }}" alt="Language Selector" style="width: 30px; height: 30px;">
             </button>
             <div id="lang-dropdown" style="display: none; position: absolute; top: 40px; right: 0; background: #333; border: 1px solid #444; border-radius: 5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); z-index: 1000;">
